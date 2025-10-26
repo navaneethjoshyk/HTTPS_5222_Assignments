@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title #{title} | Admin
+    link(rel="stylesheet" href="/admin.css")
+  body
+    header
+      h1 Admin Panel
+      nav
+        a(href="/admin") Dashboard
+        a(href="/admin/projects") Projects
+        a(href="/admin/skills") Skills
+        a(href="/api/projects" target="_blank") API: Projects
+        a(href="/api/skills" target="_blank") API: Skills
+    .wrap
+      block content

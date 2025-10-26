@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+  h1 Admin Dashboard
+  p Welcome to your portfolio admin control panel. Manage your content stored in MongoDB.
+
+  .stats
+    .card
+      h2 Total Projects
+      p= projectCount
+    .card
+      h2 Total Skills
+      p= skillCount
+    .card
+      h2 Database
+      p #{dbName}
+
+  hr
+  h2 Quick Actions
+  ul.quick-actions
+    li: a(href="/admin/projects") ➕ Add or Edit Projects
+    li: a(href="/admin/skills") ⚙️ Manage Skills
+    li: a(href="/api/projects" target="_blank") 🔗 View JSON: Projects
+    li: a(href="/api/skills" target="_blank") 🔗 View JSON: Skills

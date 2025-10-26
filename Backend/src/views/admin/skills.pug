@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+  h1 Skills
+  if errors.length
+    .errors
+      ul
+        each e in errors
+          li= e.msg
+
+  form.card(action="/admin/skills" method="POST")
+    label(for="name") Name
+    input(type="text" id="name" name="name" required value=values.name)
+    label(for="level") Level
+    select(id="level" name="level")
+      option(value="beginner" selected=values.level==="beginner") beginner
+      option(value="intermediate" selected=values.level==="intermediate") intermediate
+      option(value="advanced" selected=values.level==="advanced") advanced
+    label(for="years") Years
+    input(type="number" id="years" name="years" min="0" step="1" value=values.years || 0)
+    button(type="submit") Add Skill
+
+  if skills.length
+    table
+      thead
+        tr
+          th Name
+          th Level
+          th Years
+          th Actions
+      tbody
+        each s in skills
+          tr
+            td= s.name
+            td= s.level
+            td= s.years
+            td
+              form(action=`/admin/skills/${s._id}/delete` method="POST" onsubmit="return confirm('Delete this skill?')") 
+                button(type="submit" class="danger") Delete
+  else
+    .card
+      p No skills yet. Add your first one above.

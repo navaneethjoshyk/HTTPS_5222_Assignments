@@ -1,0 +1,44 @@
+extends ../layout
+
+block content
+  h1 Projects
+  if errors.length
+    .errors
+      ul
+        each e in errors
+          li= e.msg
+
+  form.card(action="/admin/projects" method="POST")
+    label(for="title") Title
+    input(type="text" id="title" name="title" required value=values.title)
+    label(for="description") Description
+    textarea(id="description" name="description" required)= values.description
+    label(for="tags") Tags (comma separated)
+    input(type="text" id="tags" name="tags" value=values.tags)
+    label(for="url") URL
+    input(type="url" id="url" name="url" value=values.url)
+    label(for="featured")
+      input(type="checkbox" id="featured" name="featured")
+      |  Featured
+    button(type="submit") Add Project
+
+  if projects.length
+    table
+      thead
+        tr
+          th Title
+          th Tags
+          th Featured
+          th Actions
+      tbody
+        each p in projects
+          tr
+            td= p.title
+            td= (p.tags || []).join(", ")
+            td= p.featured ? "Yes" : "No"
+            td
+              form(action=`/admin/projects/${p._id}/delete` method="POST" onsubmit="return confirm('Delete this project?')") 
+                button(type="submit" class="danger") Delete
+  else
+    .card
+      p No projects yet. Add your first one above.
